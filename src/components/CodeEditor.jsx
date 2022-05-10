@@ -89,7 +89,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                 }
             </div>
 
-            <textarea name="code" id="code" value={code} disabled={!editable}
+            <textarea name="code" id="code" spellCheck="false" value={code} disabled={!editable}
                       onChange={(e) => setCode(e.target.value)}>
             </textarea>
             {
