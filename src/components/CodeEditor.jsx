@@ -63,11 +63,15 @@ export default function CodeEditor({language, sourceCode, version = null, editab
         };
     }
 
+    const killSandbox = async () => {
+        await sandbox.terminate();
+    }
+
     console.log(lang);
     return (
         <div className="editor" style={{width: "700px"}}>
             <div className={`header ${!runnable ? 'hidden' : ''}`}>
-                <select name="lang" id="lang" defaultValue={lang.language} onChange={updateLang}>
+                <select name="lang" id="lang" defaultValue="none" onChange={updateLang}>
                     {supportedLangs.map((language) =>
                         <option key={language.language}
                                 value={language.language}
@@ -75,6 +79,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                             {language.language}
                         </option>
                     )}
+                    <option value="none">-</option>
                 </select>
                 <select name="lang-ver" id="lang-ver" onChange={updateVer}>
                     {getLangVersions(lang.language).map((ver) =>
@@ -83,7 +88,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                 </select>
                 {
                     running ?
-                        <button className="run-button running" disabled>Kill</button>
+                        <button className="run-button running" onClick={killSandbox}>Kill</button>
                         :
                         <button className="run-button" onClick={createSandbox} disabled={!runnable}>Run</button>
                 }
