@@ -1,0 +1,41 @@
+.console {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background: #000;
+    border-radius: 7px;
+}
+
+.console-control-container {
+    display: flex;
+}
+
+.output {
+    margin: 0;
+    max-height: 300px;
+}
+
+.console-input {
+    flex-grow: 1.1;
+    background: inherit;
+    color: inherit;
+    font-size: 18px;
+    font-family: "Cascadia Code", monospace;
+    outline: none;
+    border: none;
+}
+
+.clear-button {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    opacity: 0.3;
+    color: white;
+    background: none;
+    border: none;
+}
+
+.clear-button:hover {
+    opacity: .5;
+}

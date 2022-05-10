@@ -1,0 +1,63 @@
+:root {
+    --accent-success: #27C93F;
+    --main-background: #10131a;
+    --main-foreground: #D4D4D4;
+    --main-border: #3c3c44;
+}
+
+.editor {
+    display: flex;
+    flex-direction: column;
+
+
+    border-radius: 7px;
+    color: var(--main-foreground);
+    background: var(--main-background);
+
+}
+
+.editor select, .editor textarea {
+    background: inherit;
+    color: inherit;
+    border: none;
+}
+
+.editor select {
+    border-bottom: 1px solid var(--main-border);
+    /*border-radius: 7px;*/
+}
+
+.editor textarea {
+    border-radius: 7px;
+    padding: 15px;
+    outline: none;
+    resize: vertical;
+    min-width: calc(100% - 30px);
+    font-size: 18px;
+    font-family: "Cascadia Code", monospace;
+}
+
+.header {
+    display: flex;
+    gap: 15px;
+    justify-content: start;
+    padding: 10px 15px;
+    /*border-bottom: 1px solid var(--main-border);*/
+}
+
+.run-button {
+    padding: 10px 15px;
+    border-radius: 6px;
+
+    cursor: pointer;
+
+    background: var(--accent-success);
+    color: white;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: none;
+}
+
+.running {
+    background: #f63f3f;
+}
