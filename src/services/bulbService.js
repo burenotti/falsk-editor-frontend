@@ -101,7 +101,17 @@ class SandboxProxy {
 
     async sendInput(input) {
         await this.open();
-        this.websocket.send(input);
+        this.websocket.send(JSON.stringify({
+            message_type: "input_message",
+            data: input,
+        }));
+    }
+
+    async terminate() {
+        await this.open();
+        this.websocket.send(JSON.stringify({
+            message_type: "terminate_message",
+        }))
     }
 
 }
