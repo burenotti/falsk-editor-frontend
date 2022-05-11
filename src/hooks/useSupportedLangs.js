@@ -4,7 +4,7 @@ import BulbService from "../services/bulbService";
 const useSupportedLangs = () => {
     const [langs, setLangs] = useState([]);
     useEffect(() => {
-        const service = new BulbService("http://localhost:8000");
+        const service = new BulbService();
         service
             .getSupportedLanguages()
             .then(setLangs);

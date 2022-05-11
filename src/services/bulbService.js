@@ -1,6 +1,6 @@
 export default class BulbService {
     constructor(url = null) {
-        this.baseUrl = new URL("/", url ?? process.env.BULB_API_URL);
+        this.baseUrl = new URL("/", url ?? process.env.REACT_APP_BULB_API_URL);
     }
 
     buildURL(methodName, params) {

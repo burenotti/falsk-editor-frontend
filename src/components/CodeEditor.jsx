@@ -16,7 +16,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
     const [consoleOutput, setConsoleOutput] = useState("");
     const [running, setRunning] = useState(false);
     const [sandbox, setSandbox] = useState(null);
-    const service = new BulbService("http://localhost:8000")
+    const service = new BulbService()
 
     const updateVer = (event) => {
         setLang({language: lang.language, version: event.target.value});
