@@ -33,7 +33,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
     const onConsoleInput = (input) => {
         if (running) {
             sandbox.sendInput(input + '\n').then(() => {
-                setConsoleOutput(`${consoleOutput}${input}\n`)
+                setConsoleOutput(out => `${out}${input}\n`);
             })
         } else {
             alert("Sandbox is not running");
@@ -41,13 +41,14 @@ export default function CodeEditor({language, sourceCode, version = null, editab
     }
 
     const createSandbox = async () => {
+        setConsoleOutput(() => "");
         setShowConsole(true);
         let sandbox = await service.runCode(lang.language, code, lang.version);
         setSandbox(sandbox);
         setRunning(true);
 
         const handleMessage = async (message) => {
-            setConsoleOutput(consoleOutput + message.data);
+            setConsoleOutput(out => out + message.data);
         }
 
         const handleFinish = async (message) => {
@@ -59,7 +60,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
         sandbox.onFinishMessage = handleFinish;
         sandbox.onErrorMessage = async (message) => {
             if (message.error_type === "build_failed")
-                setConsoleOutput(message.logs.join(''))
+                setConsoleOutput(() => message.logs.join(''));
             await handleFinish(message)
         };
     }
