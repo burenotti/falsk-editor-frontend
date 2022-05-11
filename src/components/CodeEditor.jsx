@@ -1,8 +1,9 @@
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import useSupportedLangs from "../hooks/useSupportedLangs";
 import "./CodeEditor.css"
 import Console from "./Console";
 import BulbService from "../services/bulbService";
+import useFitContent from "../hooks/useFitContent";
 
 export default function CodeEditor({language, sourceCode, version = null, editable = true, runnable = true}) {
     const supportedLangs = useSupportedLangs();
@@ -10,7 +11,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
         language: language,
         version: version,
     })
-    const [code, setCode] = useState(sourceCode);
+    const [code, setCode, codeRef] = useFitContent(sourceCode);
     const [showConsole, setShowConsole] = useState(false);
     const [consoleOutput, setConsoleOutput] = useState("");
     const [running, setRunning] = useState(false);
@@ -95,6 +96,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
             </div>
 
             <textarea name="code" id="code" spellCheck="false" value={code} disabled={!editable}
+                      ref={codeRef}
                       onChange={(e) => setCode(e.target.value)}>
             </textarea>
             {
