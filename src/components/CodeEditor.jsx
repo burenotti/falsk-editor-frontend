@@ -23,7 +23,6 @@ export default function CodeEditor({language, sourceCode, version = null, editab
     }
     const updateLang = (event) => {
         const newLang = event.target.value;
-        console.log(newLang);
         setLang({language: newLang, version: getLangVersions(newLang)[0]});
     }
     const getLangVersions = (language) =>
@@ -69,7 +68,6 @@ export default function CodeEditor({language, sourceCode, version = null, editab
         await sandbox.terminate();
     }
 
-    console.log(lang);
     return (
         <div className="editor" style={{width: "700px"}}>
             <div className={`header ${!runnable ? 'hidden' : ''}`}>
