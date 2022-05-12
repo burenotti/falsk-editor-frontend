@@ -69,7 +69,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
     }
 
     return (
-        <div className="editor" style={{width: "700px"}}>
+        <div className="editor">
             <div className={`header ${!runnable ? 'hidden' : ''}`}>
                 <select name="lang" id="lang" defaultValue="none" onChange={updateLang}>
                     {supportedLangs.map((language) =>

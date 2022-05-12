@@ -8,7 +8,7 @@
 .editor {
     display: flex;
     flex-direction: column;
-
+    width: 100%;
 
     border-radius: 7px;
     color: var(--main-foreground);

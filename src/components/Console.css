@@ -13,7 +13,8 @@
 
 .output {
     margin: 0;
-    max-height: 300px;
+    max-height: 200px;
+    overflow: scroll;
 }
 
 .console-input {
