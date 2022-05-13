@@ -11,7 +11,7 @@ function App() {
     const languageVer = url.searchParams.get('lang_version')
     return (
         <div className="App" style={{display: "flex", justifyContent: "center"}}>
-            <div style={{width: 700}}>
+            <div style={{padding: 20, width: "100%"}}>
                 <CodeEditor
                     sourceCode={code}
                     editable={editable}
