@@ -1,19 +1,24 @@
 import "./Console.css"
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 
 export default function Console({output, onInput, onClear}) {
 
     const [input, setInput] = useState("");
+    const outputRef = useRef(null);
 
     const handleInput = () => {
         if (onInput)
             onInput(input);
         setInput("");
     }
+
+    useEffect(()=> {
+        outputRef.current.scrollTop = outputRef.current.scrollHeight;
+    }, [output]);
     return (
         <div className="console">
             <button onClick={onClear} className="clear-button">clear</button>
-            <pre className="output">
+            <pre className="output" ref={outputRef}>
                 {output}
             </pre>
             <div className="console-control-container">
