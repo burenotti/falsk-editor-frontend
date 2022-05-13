@@ -68,6 +68,17 @@ export default function CodeEditor({language, sourceCode, version = null, editab
         await sandbox.terminate();
     }
 
+    const handleKeyDown = (e) => {
+        if (e.code === 'Tab') {
+            e.preventDefault();
+            const textArea = e.target;
+            const caretPos = textArea.selectionStart;
+            const newCode = code.slice(0, caretPos) + '\t' + code.slice(caretPos,);
+            setCode(newCode);
+        }
+    }
+
+
     return (
         <div className="editor">
             <div className={`header ${!runnable ? 'hidden' : ''}`}>
@@ -96,7 +107,8 @@ export default function CodeEditor({language, sourceCode, version = null, editab
 
             <textarea name="code" id="code" spellCheck="false" value={code} disabled={!editable}
                       ref={codeRef}
-                      onChange={(e) => setCode(e.target.value)}>
+                      onChange={(e) => setCode(e.target.value)}
+                      onKeyDown={handleKeyDown}>
             </textarea>
             {
                 showConsole ?

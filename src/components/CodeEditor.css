@@ -38,6 +38,7 @@
     min-width: calc(100% - 30px);
     font-size: 18px;
     font-family: "Cascadia Code", monospace;
+    tab-size: 2;
 }
 
 .header {
