@@ -1,5 +1,8 @@
 :root {
     --accent-success: #27C93F;
+    --accent-success-hover: #44c557;
+    --accent-fail: #f63f3f;
+    --accent-fail-hover: #ff5050;
     --main-background: #10131a;
     --main-foreground: #D4D4D4;
     --main-border: #3c3c44;
@@ -52,12 +55,21 @@
     cursor: pointer;
 
     background: var(--accent-success);
+    transition: background-color 200ms;
     color: white;
     font-weight: 600;
     font-size: 1.1rem;
     border: none;
 }
 
+.run-button:hover {
+    background: var(--accent-success-hover);
+}
+
 .running {
-    background: #f63f3f;
+    background: var(--accent-fail);
+}
+
+.running:hover {
+    background: var(--accent-fail-hover);
 }
