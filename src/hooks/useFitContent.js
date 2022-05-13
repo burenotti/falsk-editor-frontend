@@ -1,7 +1,7 @@
 import {useEffect, useRef, useState} from "react";
 
-const useFitContent = () => {
-    const [content, setContent] = useState("");
+const useFitContent = (initialContent) => {
+    const [content, setContent] = useState(initialContent);
     const ref = useRef(null);
     useEffect(() => {
         ref.current.style.height = `0px`;
