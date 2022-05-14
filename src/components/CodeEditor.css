@@ -1,11 +1,27 @@
-:root {
-    --accent-success: #27C93F;
-    --accent-success-hover: #44c557;
-    --accent-fail: #f63f3f;
-    --accent-fail-hover: #ff5050;
-    --main-background: #10131a;
-    --main-foreground: #D4D4D4;
-    --main-border: #3c3c44;
+@media (prefers-color-scheme: dark) {
+    :root {
+        --accent-success: #27C93F;
+        --accent-success-hover: #44c557;
+        --accent-fail: #f63f3f;
+        --accent-fail-hover: #ff5050;
+        --main-background: #10131a;
+        --main-foreground: #D4D4D4;
+        --secondary-background: #08090e;
+
+        --main-border: #3c3c44;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --accent-success: #27C93F;
+        --accent-success-hover: #44c557;
+        --accent-fail: #f63f3f;
+        --accent-fail-hover: #ff5050;
+        --main-foreground: #10131a;
+        --main-background: #e0e0ee;
+        --main-border: #3c3c44;
+    }
 }
 
 .editor {
@@ -15,8 +31,16 @@
 
     border-radius: 7px;
     color: var(--main-foreground);
-    background: var(--main-background);
+    /*background: var(--main-background);*/
+    /*position: absolute;*/
+    /*height: calc(100% - 40px);*/
+}
 
+.main-content {
+    flex-grow: 2;
+    display: flex;
+    background: var(--main-background);
+    border-radius: 6px;
 }
 
 .editor select, .editor textarea {
@@ -34,9 +58,10 @@
     border-radius: 7px;
     padding: 15px;
     outline: none;
-    resize: vertical;
-    min-width: calc(100% - 30px);
+    resize: none;
+    /*min-width: calc(100% - 30px);*/
     font-size: 18px;
+    flex-grow: 1;
     font-family: "Cascadia Code", monospace;
     tab-size: 2;
 }
@@ -46,7 +71,9 @@
     gap: 15px;
     justify-content: start;
     padding: 10px 15px;
-    /*border-bottom: 1px solid var(--main-border);*/
+    background: var(--main-background);
+    border-radius: 6px;
+    margin-bottom: 15px;
 }
 
 .run-button {
@@ -73,4 +100,17 @@
 
 .running:hover {
     background: var(--accent-fail-hover);
+}
+
+@media screen and (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    textarea:focus + .console {
+        max-height: 30px;
+        overflow: hidden;
+    }
 }

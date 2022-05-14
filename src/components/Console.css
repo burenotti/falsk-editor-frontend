@@ -4,16 +4,20 @@
     flex-direction: column;
     gap: 10px;
     background: #000;
-    border-radius: 7px;
+    border-radius: 0 7px 7px 0;
+    flex-grow: 0.8;
+    padding: 10px;
 }
 
 .console-control-container {
+    padding: 10px 10px;
+    border-top: 1px solid var(--main-border);
     display: flex;
 }
 
 .output {
     margin: 0;
-    max-height: 200px;
+    flex-grow: 1;
     overflow: scroll;
 }
 
@@ -39,4 +43,19 @@
 
 .clear-button:hover {
     opacity: .5;
+}
+
+.send-console-input {
+    background: transparent;
+    border: 2px solid white;
+    padding: 5px 10px;
+    border-radius: 7px;
+    color: white;
+    cursor: pointer;
+    transition: 300ms;
+}
+
+.send-console-input:hover {
+    color: black;
+    background: white;
 }

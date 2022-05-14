@@ -3,7 +3,6 @@ import useSupportedLangs from "../hooks/useSupportedLangs";
 import "./CodeEditor.css"
 import Console from "./Console";
 import BulbService from "../services/bulbService";
-import useFitContent from "../hooks/useFitContent";
 
 export default function CodeEditor({language, sourceCode, version = null, editable = true, runnable = true}) {
     const supportedLangs = useSupportedLangs();
@@ -11,8 +10,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
         language: language,
         version: version,
     })
-    const [code, setCode, codeRef] = useFitContent(sourceCode);
-    const [showConsole, setShowConsole] = useState(false);
+    const [code, setCode] = useState(sourceCode);
     const [consoleOutput, setConsoleOutput] = useState("");
     const [running, setRunning] = useState(false);
     const [sandbox, setSandbox] = useState(null);
@@ -41,7 +39,6 @@ export default function CodeEditor({language, sourceCode, version = null, editab
 
     const createSandbox = async () => {
         setConsoleOutput(() => "");
-        setShowConsole(true);
         let sandbox = await service.runCode(lang.language, code, lang.version);
         setSandbox(sandbox);
         setRunning(true);
@@ -104,25 +101,20 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                         <button className="run-button" onClick={createSandbox} disabled={!runnable}>Run</button>
                 }
             </div>
-
+            <div className="main-content">
             <textarea name="code" id="code" spellCheck="false" value={code} disabled={!editable}
-                      ref={codeRef}
+                // ref={codeRef}
                       onChange={(e) => setCode(e.target.value)}
                       onKeyDown={handleKeyDown}>
             </textarea>
-            {
-                showConsole ?
-                    <Console
-                        output={consoleOutput}
-                        onInput={onConsoleInput}
-                        onClear={() => {
-                            setConsoleOutput("");
-                            setShowConsole(false);
-                        }}
-                    />
-                    :
-                    ''
-            }
+                <Console
+                    output={consoleOutput}
+                    onInput={onConsoleInput}
+                    onClear={() => {
+                        setConsoleOutput("");
+                    }}
+                />
+            </div>
         </div>
     )
 }

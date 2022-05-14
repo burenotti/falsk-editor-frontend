@@ -10,16 +10,16 @@ function App() {
     const language = url.searchParams.get('language')
     const languageVer = url.searchParams.get('lang_version')
     return (
-        <div className="App" style={{display: "flex", justifyContent: "center"}}>
-            <div style={{padding: 20, width: "100%"}}>
-                <CodeEditor
-                    sourceCode={code}
-                    editable={editable}
-                    runnable={runnable}
-                    language={language}
-                    version={languageVer}
-                />
-            </div>
+        <div className="App">
+
+            <CodeEditor
+                sourceCode={code}
+                editable={editable}
+                runnable={runnable}
+                language={language}
+                version={languageVer}
+            />
+
         </div>
     );
 }
