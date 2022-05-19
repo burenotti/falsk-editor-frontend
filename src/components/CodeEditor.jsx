@@ -100,6 +100,9 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                         :
                         <button className="run-button" onClick={createSandbox} disabled={!runnable}>Run</button>
                 }
+                <a href="http://localhost:8000/oauth/github/redirect" className="sign-in">
+                    <span>Sign in</span>
+                </a>
             </div>
             <div className="main-content">
             <textarea name="code" id="code" spellCheck="false" value={code} disabled={!editable}
