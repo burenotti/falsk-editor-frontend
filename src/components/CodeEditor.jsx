@@ -1,8 +1,9 @@
-import {useState} from "react";
+import {useContext, useState} from "react";
 import useSupportedLangs from "../hooks/useSupportedLangs";
 import "./CodeEditor.css"
 import Console from "./Console";
 import BulbService from "../services/bulbService";
+import SignInButton from "./ui/SignInButton";
 
 export default function CodeEditor({language, sourceCode, version = null, editable = true, runnable = true}) {
     const supportedLangs = useSupportedLangs();
@@ -15,7 +16,6 @@ export default function CodeEditor({language, sourceCode, version = null, editab
     const [running, setRunning] = useState(false);
     const [sandbox, setSandbox] = useState(null);
     const service = new BulbService()
-
     const updateVer = (event) => {
         setLang({language: lang.language, version: event.target.value});
     }
@@ -100,9 +100,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                         :
                         <button className="run-button" onClick={createSandbox} disabled={!runnable}>Run</button>
                 }
-                <a href="http://localhost:8000/oauth/github/redirect" className="sign-in">
-                    <span>Sign in</span>
-                </a>
+                <SignInButton/>
             </div>
             <div className="main-content">
             <textarea name="code" id="code" spellCheck="false" value={code} disabled={!editable}
