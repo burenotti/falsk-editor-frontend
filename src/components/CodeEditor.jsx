@@ -1,11 +1,14 @@
-import {useContext, useState} from "react";
+import {useState} from "react";
 import useSupportedLangs from "../hooks/useSupportedLangs";
 import "./CodeEditor.css"
 import Console from "./Console";
 import BulbService from "../services/bulbService";
 import SignInButton from "./ui/SignInButton";
+import UserCard from "./ui/UserCard";
+import useUser from "../hooks/useUser";
 
 export default function CodeEditor({language, sourceCode, version = null, editable = true, runnable = true}) {
+    const [user,] = useUser();
     const supportedLangs = useSupportedLangs();
     const [lang, setLang] = useState({
         language: language,
@@ -100,7 +103,13 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                         :
                         <button className="run-button" onClick={createSandbox} disabled={!runnable}>Run</button>
                 }
-                <SignInButton/>
+                <span style={{marginLeft: "auto"}}>
+                {user.isAuthorized ?
+                    <UserCard user={user}/>
+                    :
+                    <SignInButton/>
+                }
+                </span>
             </div>
             <div className="main-content">
             <textarea name="code" id="code" spellCheck="false" value={code} disabled={!editable}
