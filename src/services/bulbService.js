@@ -13,19 +13,29 @@ export default class BulbService {
         return url;
     }
 
-    async apiCall(url, method, json = null) {
+    async apiCall(url, method, json = null, token = null) {
         const encodedUrl = encodeURI(url.toString());
         console.log(`Sending ${method} request to ${encodedUrl}`)
+
+        let headers = {
+            Accept: "application/json",
+        };
+        if (token)
+            headers = {
+                ...headers,
+                Authorization: `bearer ${token}`,
+            }
 
         return await fetch(encodedUrl, {
             method: method,
             body: json ? JSON.stringify(json) : null,
+            headers: headers,
         });
     }
 
-    async callMethod(methodName, methodType, params = {}, json = null) {
+    async callMethod(methodName, methodType, params = {}, json = null, token=null) {
         const url = this.buildURL(methodName, params);
-        return await this.apiCall(url, methodType, json)
+        return await this.apiCall(url, methodType, json, token);
     }
 
     callWebsocket(methodName, params) {
@@ -56,6 +66,19 @@ export default class BulbService {
             code: code,
         })
         return new SandboxProxy(ws)
+    }
+
+    async getToken(code) {
+        const url = encodeURI(this.buildURL("oauth/github/token", {}).toString());
+        console.log(code);
+        const response = await fetch(url, {
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            method: "POST",
+            body: `code=${code}`,
+        })
+        return await response.json();
     }
 };
 
