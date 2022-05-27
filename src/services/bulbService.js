@@ -70,7 +70,6 @@ export default class BulbService {
 
     async getToken(code) {
         const url = encodeURI(this.buildURL("oauth/github/token", {}).toString());
-        console.log(code);
         const response = await fetch(url, {
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded",
@@ -78,7 +77,8 @@ export default class BulbService {
             method: "POST",
             body: `code=${code}`,
         })
-        return await response.json();
+        const data = await response.json();
+        return data["access_token"] ?? null;
     }
 };
 
