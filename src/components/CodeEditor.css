@@ -1,29 +1,3 @@
-@media (prefers-color-scheme: dark) {
-    :root {
-        --accent-success: #27C93F;
-        --accent-success-hover: #44c557;
-        --accent-fail: #f63f3f;
-        --accent-fail-hover: #ff5050;
-        --main-background: #10131a;
-        --main-foreground: #D4D4D4;
-        --secondary-background: #08090e;
-
-        --main-border: #3c3c44;
-    }
-}
-
-@media (prefers-color-scheme: light) {
-    :root {
-        --accent-success: #27C93F;
-        --accent-success-hover: #44c557;
-        --accent-fail: #f63f3f;
-        --accent-fail-hover: #ff5050;
-        --main-foreground: #10131a;
-        --main-background: #e0e0ee;
-        --main-border: #3c3c44;
-    }
-}
-
 .editor {
     display: flex;
     flex-direction: column;
@@ -100,24 +74,6 @@
 
 .running:hover {
     background: var(--accent-fail-hover);
-}
-
-.sign-in {
-    cursor: pointer;
-    background: none;
-    color: var(--main-foreground);
-    font-family: "Cascadia Code", monospace;
-    font-size: 0.9em;
-    font-weight: 600;
-    border: 2px solid var(--main-foreground);
-    border-radius: 15px;
-    padding: 10px 15px;
-    transition: 300ms;
-}
-
-.sign-in:hover {
-    background: var(--main-foreground);
-    color: var(--main-background);
 }
 
 @media screen and (max-width: 768px) {
