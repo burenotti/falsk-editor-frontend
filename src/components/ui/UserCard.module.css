@@ -1,0 +1,17 @@
+.userCard {
+    display: inline-flex;
+    gap: 0 10px;
+    align-items: center;
+}
+
+.avatar {
+    --size: 45px;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+}
+
+.username {
+    font-family: "Cascadia Code", monospace;
+    font-size: 1em;
+}
