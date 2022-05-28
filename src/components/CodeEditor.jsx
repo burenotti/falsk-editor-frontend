@@ -5,11 +5,11 @@ import Console from "./Console";
 import BulbService from "../services/bulbService";
 import SignInButton from "./ui/SignInButton";
 import UserCard from "./ui/UserCard";
-import useUser from "../hooks/useUser";
+import useCurrentUser from "../hooks/useCurrentUser";
 import CodeEdit from "./ui/CodeEdit";
 
 export default function CodeEditor({language, sourceCode, version = null, editable = true, runnable = true}) {
-    const [user,] = useUser();
+    const [user,] = useCurrentUser();
     const supportedLangs = useSupportedLangs();
     const [lang, setLang] = useState({
         language: language,

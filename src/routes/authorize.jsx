@@ -2,14 +2,14 @@ import useAuthorizationCode from "../hooks/useAuthorizationCode";
 import useBulbService from "../hooks/useBulbService";
 import {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
-import useUser from "../hooks/useUser";
+import useCurrentUser from "../hooks/useCurrentUser";
 import User from "../services/user";
 
 export default function Authorize() {
     const code = useAuthorizationCode();
     const service = useBulbService();
     const navigate = useNavigate();
-    const [, setUser, ] = useUser();
+    const [, setUser, ] = useCurrentUser();
     const [accessToken, setAccessToken] = useState(null);
     useEffect(() => {
         if (code !== null) {
