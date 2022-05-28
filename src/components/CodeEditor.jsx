@@ -6,6 +6,7 @@ import BulbService from "../services/bulbService";
 import SignInButton from "./ui/SignInButton";
 import UserCard from "./ui/UserCard";
 import useUser from "../hooks/useUser";
+import CodeEdit from "./ui/CodeEdit";
 
 export default function CodeEditor({language, sourceCode, version = null, editable = true, runnable = true}) {
     const [user,] = useUser();
@@ -68,16 +69,6 @@ export default function CodeEditor({language, sourceCode, version = null, editab
         await sandbox.terminate();
     }
 
-    const handleKeyDown = (e) => {
-        if (e.code === 'Tab') {
-            e.preventDefault();
-            const textArea = e.target;
-            const caretPos = textArea.selectionStart;
-            const newCode = code.slice(0, caretPos) + '\t' + code.slice(caretPos,);
-            setCode(newCode);
-        }
-    }
-
 
     return (
         <div className="editor">
@@ -112,11 +103,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                 </span>
             </div>
             <div className="main-content">
-            <textarea name="code" id="code" spellCheck="false" value={code} disabled={!editable}
-                // ref={codeRef}
-                      onChange={(e) => setCode(e.target.value)}
-                      onKeyDown={handleKeyDown}>
-            </textarea>
+                <CodeEdit value={code} onChange={setCode} editable={editable}/>
                 <Console
                     output={consoleOutput}
                     onInput={onConsoleInput}
