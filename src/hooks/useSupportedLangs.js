@@ -1,14 +1,15 @@
 import {useEffect, useState} from "react";
-import BulbService from "../services/bulbService";
+import useBulbService from "./useBulbService";
 
 const useSupportedLangs = () => {
     const [langs, setLangs] = useState([]);
+    const service = useBulbService();
     useEffect(() => {
-        const service = new BulbService();
-        service
-            .getSupportedLanguages()
-            .then(setLangs);
-    }, []);
+        if (service !== null)
+            service
+                .getSupportedLanguages()
+                .then(setLangs);
+    }, [service]);
 
     return langs;
 }
