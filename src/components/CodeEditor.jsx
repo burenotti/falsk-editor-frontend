@@ -3,29 +3,22 @@ import useSupportedLangs from "../hooks/useSupportedLangs";
 import "./CodeEditor.css"
 import Console from "./Console";
 import BulbService from "../services/bulbService";
-import SignInButton from "./ui/SignInButton";
-import UserCard from "./ui/UserCard";
-import useCurrentUser from "../hooks/useCurrentUser";
 import CodeEdit from "./ui/CodeEdit";
+import useCurrentSnippet from "../hooks/useCurrentSnippet";
 
 export default function CodeEditor({language, sourceCode, version = null, editable = true, runnable = true}) {
-    const [user,] = useCurrentUser();
     const supportedLangs = useSupportedLangs();
-    const [lang, setLang] = useState({
-        language: language,
-        version: version,
-    })
-    const [code, setCode] = useState(sourceCode);
+    const [snippet, updateSnippet] = useCurrentSnippet();
     const [consoleOutput, setConsoleOutput] = useState("");
     const [running, setRunning] = useState(false);
     const [sandbox, setSandbox] = useState(null);
     const service = new BulbService()
     const updateVer = (event) => {
-        setLang({language: lang.language, version: event.target.value});
+        updateSnippet({version: event.target.value});
     }
     const updateLang = (event) => {
         const newLang = event.target.value;
-        setLang({language: newLang, version: getLangVersions(newLang)[0]});
+        updateSnippet({language: newLang, version: getLangVersions(newLang)[0]});
     }
     const getLangVersions = (language) =>
         (supportedLangs.find((l) => l.language === language) ?? {}).versions ?? [];
@@ -43,7 +36,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
 
     const createSandbox = async () => {
         setConsoleOutput(() => "");
-        let sandbox = await service.runCode(lang.language, code, lang.version);
+        let sandbox = await service.runCode(snippet.language, snippet.code, snippet.version);
         setSandbox(sandbox);
         setRunning(true);
 
@@ -84,7 +77,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                     <option value="none">-</option>
                 </select>
                 <select name="lang-ver" id="lang-ver" onChange={updateVer}>
-                    {getLangVersions(lang.language).map((ver) =>
+                    {getLangVersions((snippet ?? {}).language).map((ver) =>
                         <option key={ver} value={ver}>{ver}</option>
                     )}
                 </select>
@@ -94,16 +87,12 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                         :
                         <button className="run-button" onClick={createSandbox} disabled={!runnable}>Run</button>
                 }
-                <span style={{marginLeft: "auto"}}>
-                {user && user.isAuthorized ?
-                    <UserCard user={user}/>
-                    :
-                    <SignInButton/>
-                }
-                </span>
             </div>
             <div className="main-content">
-                <CodeEdit value={code} onChange={setCode} editable={editable}/>
+                <CodeEdit value={(snippet ?? {}).code}
+                          onChange={(newCode) => updateSnippet({code: newCode})}
+                          editable={editable}
+                />
                 <Console
                     output={consoleOutput}
                     onInput={onConsoleInput}

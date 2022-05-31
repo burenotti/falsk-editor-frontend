@@ -1,3 +1,35 @@
+.rounded {
+  border-radius: 7px;
+}
+
+.dark-bg {
+  background: var(--main-background);
+}
+
+.main-fg {
+  color: var(--main-foreground);
+}
+
+.hidden {
+  position: absolute;
+  display: block;
+  width: 0;
+  height: 0;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  z-index: -9999;
+}
+
+.monospaced {
+  font-family: "Cascadia Code", monospace;
+  font-size: 18px;
+}
+
+.flex {
+  display: flex;
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --accent-success: #27C93F;
@@ -31,6 +63,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: var(--main-background);
 }
 
 code {

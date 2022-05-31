@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -6,17 +6,29 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Authorize from "./routes/authorize";
 import SnippetView from "./routes/snippet";
+import {SnippetContext} from "./context";
+import useCurrentSnippet from "./hooks/useCurrentSnippet";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+function AppRouter() {
+    const [snippet, setSnippet] = useCurrentSnippet();
+    return (
+        <SnippetContext.Provider value={[snippet, setSnippet]}>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<App/>}/>
+                    <Route path="/authorize" element={<Authorize/>}/>
+                    <Route path="/@:username/:snippet" element={<SnippetView/>}/>
+                </Routes>
+            </BrowserRouter>
+        </SnippetContext.Provider>
+    )
+}
+
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
-            <Routes>
-                <Route path="/" element={<App/>}/>
-                <Route path="/authorize" element={<Authorize/>}/>
-                <Route path="/@:username/:snippet" element={<SnippetView/>}/>
-            </Routes>
-        </BrowserRouter>
+        <AppRouter/>
     </React.StrictMode>
 );
 

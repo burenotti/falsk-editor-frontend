@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
-
+    height: 100%;
     border-radius: 7px;
     color: var(--main-foreground);
     /*background: var(--main-background);*/
@@ -29,7 +29,7 @@
 }
 
 .editor textarea {
-    border-radius: 7px;
+    border-radius: 0 0 6px 6px;
     padding: 15px;
     outline: none;
     resize: none;
@@ -46,8 +46,7 @@
     justify-content: start;
     padding: 10px 15px;
     background: var(--main-background);
-    border-radius: 6px;
-    margin-bottom: 15px;
+    border-radius: 6px 6px 0 0;
 }
 
 .run-button {

@@ -10,10 +10,21 @@ export default function useSnippet(username, snippetName) {
         if (!(service && username && snippetName && user)) {
             return
         }
-        console.log(service, username, snippetName);
 
         service.getSnippet(username, snippetName, user.accessToken).then(setSnippet);
     }, [service, username, snippetName, user]);
 
-    return snippet;
+
+    useEffect(() => {
+        // if (service && username && snippet && user) {
+        //     service.patchSnippet(username, snippet.name, snippet, user.accessToken);
+        // }
+
+    }, [service, snippet, user, username])
+
+    const updateSnippet = (patch) => {
+        setSnippet({...snippet, ...patch});
+    }
+
+    return [snippet, updateSnippet];
 }

@@ -20,11 +20,12 @@ export default class BulbService {
         let headers = {
             Accept: "application/json",
         };
+
+        if (json) {
+            headers["Content-Type"] = "application/json";
+        }
         if (token)
-            headers = {
-                ...headers,
-                Authorization: `bearer ${token}`,
-            }
+            headers["Authorization"] = `bearer ${token}`;
 
         return await fetch(encodedUrl, {
             method: method,
@@ -85,6 +86,12 @@ export default class BulbService {
         console.log(`snippet/${username}/name/${snippet}`)
         const result = await this.callMethod(`snippet/${username}/name/${snippet}`,
             "GET", {}, null, token);
+        return await result.json();
+    }
+
+    async patchSnippet(author, snippetName, patch, token) {
+        const method = `snippet/${author}/name/${snippetName}`
+        const result = await this.callMethod(method, "PATCH", {}, patch, token);
         return await result.json();
     }
 };

@@ -1,0 +1,12 @@
+.mainHeader {
+    padding: 10px 20px;
+    align-items: center;
+    gap: 15px;
+}
+
+.snippet {
+}
+
+.snippetName {
+    cursor: pointer;
+}
