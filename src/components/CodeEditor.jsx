@@ -85,7 +85,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                 </select>
                 <select name="lang-ver" id="lang-ver" onChange={updateVer}>
                     {getLangVersions(lang.language).map((ver) =>
-                        <option key={lang.language} value={ver}>{ver}</option>
+                        <option key={ver} value={ver}>{ver}</option>
                     )}
                 </select>
                 {
@@ -95,7 +95,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
                         <button className="run-button" onClick={createSandbox} disabled={!runnable}>Run</button>
                 }
                 <span style={{marginLeft: "auto"}}>
-                {user.isAuthorized ?
+                {user && user.isAuthorized ?
                     <UserCard user={user}/>
                     :
                     <SignInButton/>
