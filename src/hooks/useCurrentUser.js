@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import User from "../services/user";
 
 export default function useCurrentUser() {
-    const [user, setUser] = useState(new User());
+    const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
     useEffect(() => {
         try {
@@ -15,7 +15,7 @@ export default function useCurrentUser() {
     }, []);
 
     useEffect(() => {
-        if (user.isAuthorized)
+        if (user && user.isAuthorized)
             user.dumpToLocalStorage();
     }, [user])
     return [user, setUser, error];
