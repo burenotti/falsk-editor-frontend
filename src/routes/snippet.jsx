@@ -6,19 +6,18 @@ import Header from "../components/ui/Header";
 export default function SnippetView() {
 
     const params = useParams();
-    const [snippet] = useSnippet(params.username, params.snippet);
+    const [snippet, updateSnippet] = useSnippet(params.username, params.snippet);
     if (snippet)
         return (
             <div style={{padding: 15, position: "relative", width: "100%", height: "calc(100% - 90px)"}}>
                 <div style={{marginBottom: 20}}>
-                    <Header/>
+                    <Header snippet={snippet} updateSnippet={updateSnippet}/>
                 </div>
                 <CodeEditor
-                    language={snippet.language}
-                    version={snippet.version}
+                    snippet={snippet}
+                    onChange={updateSnippet}
                     editable={true}
                     runnable={true}
-                    sourceCode={snippet.code}
                 />
             </div>
         )

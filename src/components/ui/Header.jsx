@@ -2,12 +2,10 @@ import UserCard from "./UserCard";
 import SignInButton from "./SignInButton";
 import useCurrentUser from "../../hooks/useCurrentUser";
 import styles from './Header.module.css'
-import useCurrentSnippet from "../../hooks/useCurrentSnippet";
 import {useState} from "react";
 import Checkbox from "./Checkbox";
 
-export default function Header() {
-    const [snippet, setSnippet] = useCurrentSnippet();
+export default function Header({snippet, updateSnippet}) {
     const [user,] = useCurrentUser();
     const [editing, setEditing] = useState(false);
     return (
@@ -22,7 +20,7 @@ export default function Header() {
                             <input type="text" value={snippet.name}
                                    autoFocus={true}
                                    onChange={
-                                       (e) => setSnippet({name: e.target.value})
+                                       (e) => updateSnippet({name: e.target.value})
                                    }
                                    onInput={
                                        () => setEditing(false)
@@ -36,7 +34,7 @@ export default function Header() {
                     </div>
                     <Checkbox
                         checked={snippet.public}
-                        onChange={(e) => setSnippet({public: e.checked})}
+                        onChange={(e) => updateSnippet({public: e.checked})}
                     />
                 </>
                 : ""

@@ -4,21 +4,24 @@ import "./CodeEditor.css"
 import Console from "./Console";
 import BulbService from "../services/bulbService";
 import CodeEdit from "./ui/CodeEdit";
-import useCurrentSnippet from "../hooks/useCurrentSnippet";
 
-export default function CodeEditor({language, sourceCode, version = null, editable = true, runnable = true}) {
+export default function CodeEditor(
+    {
+        language, sourceCode, snippet, onChange, version = null,
+        editable = true, runnable = true
+    }
+) {
     const supportedLangs = useSupportedLangs();
-    const [snippet, updateSnippet] = useCurrentSnippet();
     const [consoleOutput, setConsoleOutput] = useState("");
     const [running, setRunning] = useState(false);
     const [sandbox, setSandbox] = useState(null);
     const service = new BulbService()
     const updateVer = (event) => {
-        updateSnippet({version: event.target.value});
+        onChange({version: event.target.value});
     }
     const updateLang = (event) => {
         const newLang = event.target.value;
-        updateSnippet({language: newLang, version: getLangVersions(newLang)[0]});
+        onChange({language: newLang, version: getLangVersions(newLang)[0]});
     }
     const getLangVersions = (language) =>
         (supportedLangs.find((l) => l.language === language) ?? {}).versions ?? [];
@@ -90,7 +93,7 @@ export default function CodeEditor({language, sourceCode, version = null, editab
             </div>
             <div className="main-content">
                 <CodeEdit value={(snippet ?? {}).code}
-                          onChange={(newCode) => updateSnippet({code: newCode})}
+                          onChange={(newCode) => onChange({code: newCode})}
                           editable={editable}
                 />
                 <Console
