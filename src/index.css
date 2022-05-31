@@ -6,6 +6,10 @@
   background: var(--main-background);
 }
 
+.darker-bg {
+  background: #0d0f15;
+}
+
 .main-fg {
   color: var(--main-foreground);
 }
@@ -28,6 +32,10 @@
 
 .flex {
   display: flex;
+}
+
+.reset {
+  border: none;
 }
 
 @media (prefers-color-scheme: dark) {
