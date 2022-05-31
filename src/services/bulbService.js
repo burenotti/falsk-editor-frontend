@@ -63,7 +63,7 @@ export default class BulbService {
     async runCode(lang, code, langVer = null) {
         const ws = this.callWebsocket("code/run", {
             language: lang,
-            langVer,
+            version: langVer,
             code: code,
         })
         return new SandboxProxy(ws)
@@ -92,6 +92,12 @@ export default class BulbService {
     async patchSnippet(author, snippetName, patch, token) {
         const method = `snippet/${author}/name/${snippetName}`
         const result = await this.callMethod(method, "PATCH", {}, patch, token);
+        return await result.json();
+    }
+
+    async getSnippetsList(username, token = null) {
+        const result = await this.callMethod(
+            `snippet/${username}/list`, "GET", {}, null, token);
         return await result.json();
     }
 };
