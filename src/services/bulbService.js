@@ -33,7 +33,7 @@ export default class BulbService {
         });
     }
 
-    async callMethod(methodName, methodType, params = {}, json = null, token=null) {
+    async callMethod(methodName, methodType, params = {}, json = null, token = null) {
         const url = this.buildURL(methodName, params);
         return await this.apiCall(url, methodType, json, token);
     }
@@ -80,6 +80,13 @@ export default class BulbService {
         const data = await response.json();
         return data["access_token"] ?? null;
     }
+
+    async getSnippet(username, snippet, token = null) {
+        console.log(`snippet/${username}/name/${snippet}`)
+        const result = await this.callMethod(`snippet/${username}/name/${snippet}`,
+            "GET", {}, null, token);
+        return await result.json();
+    }
 };
 
 class SandboxProxy {
@@ -94,9 +101,12 @@ class SandboxProxy {
         this.websocket = websocket;
         this.result = null;
         this.ready = false;
-        this.onOutputMessage = async (_) => {};
-        this.onFinishMessage = async (_) => {};
-        this.onErrorMessage = async (_) => {};
+        this.onOutputMessage = async (_) => {
+        };
+        this.onFinishMessage = async (_) => {
+        };
+        this.onErrorMessage = async (_) => {
+        };
     }
 
     open = async () => {
