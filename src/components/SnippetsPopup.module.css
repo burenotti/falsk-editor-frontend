@@ -1,0 +1,28 @@
+.popup {
+    padding: 15px;
+    position: fixed;
+    min-width: 500px;
+    min-height: 300px;
+    z-index: 999;
+    border: 1px solid var(--main-border);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.searchBar {
+    width: 100%;
+    padding: 10px 15px;
+    color: var(--main-foreground);
+    display: block;
+    margin: 0 auto;
+}
+
+ul {
+    overflow: auto;
+    margin: 20px 0 0 0;
+    padding: 10px;
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
