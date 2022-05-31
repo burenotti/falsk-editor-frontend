@@ -16,9 +16,9 @@ export default function useSnippet(username, snippetName) {
 
 
     useEffect(() => {
-        // if (service && username && snippet && user) {
-        //     service.patchSnippet(username, snippet.name, snippet, user.accessToken);
-        // }
+        if (service && username && snippet && user) {
+            service.patchSnippet(username, snippet.name, snippet, user.accessToken);
+        }
 
     }, [service, snippet, user, username])
 
