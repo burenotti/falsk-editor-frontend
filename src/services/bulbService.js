@@ -3,17 +3,21 @@ export default class BulbService {
         this.baseUrl = new URL("/", url ?? process.env.REACT_APP_BULB_API_URL);
     }
 
+    static buildFormBody = (form) => encodeURI(
+        new URLSearchParams(Object.entries(form)).toString()
+    );
+
     buildURL(methodName, params) {
         let url = new URL(methodName, this.baseUrl);
         Object
             .entries(params)
-            .filter(([key, value]) => value !== null)
+            .filter(([, value]) => value !== null)
             .forEach(([key, value]) => url.searchParams.set(key, value));
 
         return url;
     }
 
-    async apiCall(url, method, json = null, token = null) {
+    async apiCall({url, method, json = null, form = null, token = null}) {
         const encodedUrl = encodeURI(url.toString());
         console.log(`Sending ${method} request to ${encodedUrl}`)
 
@@ -21,23 +25,46 @@ export default class BulbService {
             Accept: "application/json",
         };
 
+        let body = null;
+
+        if (form && json)
+            throw Error("Specify either form or json parameters, not both.")
+
         if (json) {
             headers["Content-Type"] = "application/json";
+            body = JSON.stringify(json);
         }
+        if (form) {
+            headers["Content-Type"] = "application/x-www-form-urlencoded"
+            body = new URLSearchParams(Object.entries(form)).toString();
+        }
+
         if (token)
             headers["Authorization"] = `bearer ${token}`;
 
         return await fetch(encodedUrl, {
             method: method,
-            body: json ? JSON.stringify(json) : null,
+            body: body,
             headers: headers,
         });
     }
 
-    async callMethod(methodName, methodType, params = {}, json = null, token = null) {
+    async callMethod(methodName, methodType,
+                     {params = {}, json = null, token = null}) {
         const url = this.buildURL(methodName, params);
-        return await this.apiCall(url, methodType, json, token);
+        const response = await this.apiCall({
+            url: url,
+            method: methodType,
+            json: json,
+            token: token,
+        });
+
+        if (!response.ok)
+            throw response;
+
+        return await response.json();
     }
+
 
     callWebsocket(methodName, params) {
         let url = this.buildURL(methodName, params);
@@ -47,11 +74,7 @@ export default class BulbService {
     }
 
     async getStats() {
-        const response = await this.callMethod("code/stats", "GET");
-        if (response.ok)
-            return await response.json()
-        else
-            throw response;
+        return await this.callMethod("code/stats", "GET", {})
     }
 
     async getSupportedLanguages() {
@@ -70,35 +93,26 @@ export default class BulbService {
     }
 
     async getToken(code) {
-        const url = encodeURI(this.buildURL("oauth/github/token", {}).toString());
-        const response = await fetch(url, {
-            headers: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            method: "POST",
-            body: `code=${code}`,
-        })
-        const data = await response.json();
-        return data["access_token"] ?? null;
+        const token = await this.callMethod("oauth/github/token", "POST", {})
+        return token["access_token"] ?? null;
     }
 
     async getSnippet(username, snippet, token = null) {
-        console.log(`snippet/${username}/name/${snippet}`)
-        const result = await this.callMethod(`snippet/${username}/name/${snippet}`,
-            "GET", {}, null, token);
-        return await result.json();
+        const method = `snippet/${username}/name/${snippet}`
+        return await this.callMethod(method, "GET", {token: token});
     }
 
     async patchSnippet(author, snippetName, patch, token) {
         const method = `snippet/${author}/name/${snippetName}`
-        const result = await this.callMethod(method, "PATCH", {}, patch, token);
-        return await result.json();
+        return await this.callMethod(method, "PATCH", {
+            json: patch,
+            token: token,
+        });
     }
 
     async getSnippetsList(username, token = null) {
-        const result = await this.callMethod(
-            `snippet/${username}/list`, "GET", {}, null, token);
-        return await result.json();
+        const method = `snippet/${username}/list`
+        return await this.callMethod(method, "GET", {token: token});
     }
 };
 
