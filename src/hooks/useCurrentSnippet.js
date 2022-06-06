@@ -1,5 +1,5 @@
 import {useParams} from "react-router-dom";
-import useSnippet from "./useSnippet";
+import {useSnippet} from "./useSnippet";
 
 export default function useCurrentSnippet() {
     const params = useParams();
