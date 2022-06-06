@@ -19,12 +19,12 @@ body {
 }
 
 .App {
-    padding: 20px;
     width: 100%;
     position: absolute;
     height: 100%;
     display: flex;
-
+    flex-direction: column;
+    padding: 20px;
 }
 
 
