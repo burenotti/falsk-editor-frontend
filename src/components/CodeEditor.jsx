@@ -17,11 +17,11 @@ export default function CodeEditor(
     const [sandbox, setSandbox] = useState(null);
     const service = new BulbService()
     const updateVer = (event) => {
-        onChange({version: event.target.value});
+        onChange({language_version: event.target.value});
     }
     const updateLang = (event) => {
         const newLang = event.target.value;
-        onChange({language: newLang, version: getLangVersions(newLang)[0]});
+        onChange({language: newLang, language_version: getLangVersions(newLang)[0]});
     }
     const getLangVersions = (language) =>
         (supportedLangs.find((l) => l.language === language) ?? {}).versions ?? [];

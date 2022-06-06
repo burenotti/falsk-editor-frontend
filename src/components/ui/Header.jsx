@@ -12,9 +12,12 @@ export default function Header({snippet, updateSnippet, showPopup}) {
         [snippet, user]
     )
     const [editing, setEditing] = useState(false);
+
+    const showSnippetInfo = snippet ? snippet.creator_username && snippet.name : false;
+
     return (
         <header className={`rounded dark-bg flex ${styles.mainHeader}`}>
-            {snippet ?
+            {showSnippetInfo ?
                 <>
                     <div className={`${styles.snippet} monospaced main-fg`}>
                         <span>@</span>
@@ -46,7 +49,8 @@ export default function Header({snippet, updateSnippet, showPopup}) {
                         />
                     }
                 </>
-                : ""
+                :
+                ""
             }
 
             <span style={{marginLeft: "auto"}}>

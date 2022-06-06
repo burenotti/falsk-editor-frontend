@@ -10,21 +10,22 @@ const types = Object.freeze({
     syncFailed: "syncFailed",
     attachSuccess: "attachSuccess",
     attachFailed: "attachFailed",
+    setIdentity: "setIdentity",
 });
 
-function useSnippet(username = null, snippetName = null) {
+function useSnippet() {
 
     const [user,] = useCurrentUser();
 
     const initialState = {
-        attachable: Boolean(username && snippetName),
+        attachable: false,
         attached: false,
-        lastSync: +Infinity,
-        lastUpdate: +Infinity,
+        lastSync: 0,
+        lastUpdate: 0,
         error: null,
         snippet: {
-            creator_username: username,
-            name: snippetName,
+            creator_username: null,
+            name: null,
             code: "",
             language: null,
             language_version: null,
@@ -32,7 +33,7 @@ function useSnippet(username = null, snippetName = null) {
     };
     const reducer = (state, {type, ...updates}) => {
         console.log('type', type === types.attachSuccess);
-        let newState = {}
+        let newState = state;
         if (type === types.updateMeta || type === types.updateCode) {
             newState = {
                 ...state,
@@ -60,7 +61,15 @@ function useSnippet(username = null, snippetName = null) {
         } else if (type === types.attachFailed) {
             newState = {
                 ...state,
+                attachable: false,
                 error: updates.error,
+            }
+        } else if (type === types.setIdentity) {
+            newState = {
+                ...state,
+                attachable: true,
+                attached: false,
+                snippet: {...state.snippet, ...updates},
             }
         }
         return newState;
@@ -94,7 +103,7 @@ function useSnippet(username = null, snippetName = null) {
         const isSynced = state.lastSync >= state.lastUpdate
         const service = new BulbService();
         const at = Date.now();
-
+        console.log('synced', isSynced);
         if (isSynced || !state.attached || !user) return;
 
 
@@ -116,7 +125,7 @@ function useSnippet(username = null, snippetName = null) {
         })
     }, [user, state]);
 
-    return [state, dispatch];
+    return [state.snippet, dispatch];
 }
 
 export {useSnippet, types};

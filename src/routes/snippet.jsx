@@ -1,13 +1,24 @@
 import {useParams} from "react-router-dom";
-import useSnippet from "../hooks/useSnippet";
+import {types, useSnippet} from "../hooks/useSnippet";
 import CodeEditor from "../components/CodeEditor";
 import Header from "../components/ui/Header";
 import {useEffect} from "react";
 
 export default function SnippetView({popup}) {
-    const [showPopup, ] = popup;
+    const [showPopup,] = popup;
     const params = useParams();
-    const [snippet, updateSnippet] = useSnippet(params.username, params.snippet);
+    const [snippet, dispatchSnippet] = useSnippet();
+    useEffect(() => {
+        dispatchSnippet({
+            type: types.setIdentity,
+            creator_username: params.username,
+            name: params.snippet,
+        });
+    }, [params])
+    const updateSnippet = (updates) => dispatchSnippet({
+        type: types.updateMeta,
+        ...updates,
+    });
 
     useEffect(() => {
         document.title = snippet ? snippet.name : "Code Flask";
