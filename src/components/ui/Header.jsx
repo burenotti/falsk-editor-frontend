@@ -16,10 +16,10 @@ export default function Header({snippet, updateSnippet, showPopup}) {
     const showSnippetInfo = snippet ? snippet.creator_username && snippet.name : false;
 
     return (
-        <header className={`rounded dark-bg flex ${styles.mainHeader}`}>
+        <header className={`rounded bg-dark flex ${styles.mainHeader}`}>
             {showSnippetInfo ?
                 <>
-                    <div className={`${styles.snippet} monospaced main-fg`}>
+                    <div className={`${styles.snippet} monospaced fg-main`}>
                         <span>@</span>
                         <span className={styles.snippetAuthor}
                               onClick={() => showPopup(snippet.creator_username)}>

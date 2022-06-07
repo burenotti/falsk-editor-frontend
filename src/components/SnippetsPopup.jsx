@@ -19,20 +19,20 @@ export default function SnippetsPopup({username, onClose}) {
 
     const filtered = snippets.filter((s) => s.name.startsWith(searchQuery))
     return (
-        <div className={`dark-bg rounded ${styles.popup}`}>
+        <div className={`bg-dark rounded ${styles.popup}`}>
             <div className="flex">
                 <input type="text" placeholder="Search..."
                        value={searchQuery}
                        onChange={(e) => setSearchQuery(e.target.value)}
-                       className={`reset ${styles.searchBar} monospaced rounded darker-bg`}/>
+                       className={`reset ${styles.searchBar} monospaced rounded bg-darker`}/>
                 <button className={"reset monospaced"} onClick={() => onClose()}
                         style={{background: "none", color: "var(--main-border)"}}>x</button>
             </div>
             <ul>
                 {filtered.map((snippet) => (
                         <li>
-                            <span className={"monospaced main-fg"} style={{marginRight: 10}}>/</span>
-                            <NavLink className={"monospaced main-fg"} to={`/@${snippet.creator_username}/${snippet.name}`}>
+                            <span className={"monospaced fg-main"} style={{marginRight: 10}}>/</span>
+                            <NavLink className={"monospaced fg-main"} to={`/@${snippet.creator_username}/${snippet.name}`}>
                                 {snippet.name}
                             </NavLink>
                         </li>
