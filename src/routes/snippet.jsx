@@ -25,19 +25,17 @@ export default function SnippetView({popup}) {
     }, [snippet])
 
 
-    if (snippet)
+    if (snippet.attached || !snippet.attachable)
         return (
-            <div style={{padding: 15, position: "relative", width: "100%", height: "calc(100% - 90px)"}}>
-                <div style={{marginBottom: 20}}>
-                    <Header showPopup={showPopup} snippet={snippet} updateSnippet={updateSnippet}/>
-                </div>
+            <>
+                <Header showPopup={showPopup} snippet={snippet} updateSnippet={updateSnippet}/>
                 <CodeEditor
                     snippet={snippet}
                     onChange={updateSnippet}
                     editable={true}
                     runnable={true}
                 />
-            </div>
+            </>
         )
     else
         return (
