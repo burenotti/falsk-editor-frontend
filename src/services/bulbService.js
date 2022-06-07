@@ -41,7 +41,6 @@ export default class BulbService {
 
         if (token)
             headers["Authorization"] = `bearer ${token}`;
-
         return await fetch(encodedUrl, {
             method: method,
             body: body,
@@ -50,12 +49,13 @@ export default class BulbService {
     }
 
     async callMethod(methodName, methodType,
-                     {params = {}, json = null, token = null}) {
+                     {params = {}, json = null, form = null, token = null}) {
         const url = this.buildURL(methodName, params);
         const response = await this.apiCall({
             url: url,
             method: methodType,
             json: json,
+            form: form,
             token: token,
         });
 
@@ -93,7 +93,11 @@ export default class BulbService {
     }
 
     async getToken(code) {
-        const token = await this.callMethod("oauth/github/token", "POST", {})
+        const token = await this.callMethod("oauth/github/token", "POST", {
+            form: {
+                code: code,
+            }
+        })
         return token["access_token"] ?? null;
     }
 
