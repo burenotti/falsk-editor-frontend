@@ -1,80 +1,86 @@
+@import url("colors.css");
+
+
+button {
+    cursor: pointer;
+}
 .rounded {
-  border-radius: 7px;
+    border-radius: .5rem;
 }
 
-.dark-bg {
-  background: var(--main-background);
-}
-
-.darker-bg {
-  background: #0d0f15;
-}
-
-.main-fg {
-  color: var(--main-foreground);
+.container {
+    background: var(--main-background);
+    border-radius: .5rem;
 }
 
 .hidden {
-  position: absolute;
-  display: block;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  margin: 0;
-  padding: 0;
-  z-index: -9999;
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    margin: 0;
+    padding: 0;
+    z-index: -9999;
 }
 
 .monospaced {
-  font-family: "Cascadia Code", monospace;
-  font-size: 18px;
+    font-family: "Cascadia Code", monospace;
+    font-size: 1em;
 }
 
 .flex {
-  display: flex;
+    display: flex;
 }
 
 .reset {
-  border: none;
+    border: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --accent-success: #27C93F;
-    --accent-success-hover: #44c557;
-    --accent-fail: #f63f3f;
-    --accent-fail-hover: #ff5050;
-    --main-background: #10131a;
-    --main-foreground: #D4D4D4;
-    --secondary-background: #08090e;
-
-    --main-border: #3c3c44;
-  }
+.hv-light:hover {
+    filter: brightness(2);
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --accent-success: #27C93F;
-    --accent-success-hover: #44c557;
-    --accent-fail: #f63f3f;
-    --accent-fail-hover: #ff5050;
-    --main-foreground: #10131a;
-    --main-background: #e0e0ee;
-    --main-border: #3c3c44;
-  }
+.bolder {
+    font-size: 1rem;
+    font-weight: 600;
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: var(--main-background);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--main-background);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+.px-15 {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.py-7 {
+    padding-top: 7px;
+    padding-bottom: 7px;
+}
+
+.select {
+    background-color: transparent;
+    color: var(--main-foreground);
+    font-size: 1rem;
+    font-family: "Cascadia Code", monospace;
+    padding: 10px 15px;
+    border-radius: .5rem;
+    border: 2px solid var(--main-border);
+}
+
+.select:focus {
+    background: var(--secondary-background) none;
 }
