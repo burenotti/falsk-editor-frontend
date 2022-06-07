@@ -1,89 +1,16 @@
 .editor {
     display: flex;
     flex-direction: column;
-    width: 100%;
-    height: 100%;
-    border-radius: 7px;
-    color: var(--main-foreground);
-    /*background: var(--main-background);*/
-    /*position: absolute;*/
-    /*height: calc(100% - 40px);*/
-}
-
-.main-content {
-    flex-grow: 2;
-    display: flex;
-    background: var(--main-background);
-    border-radius: 6px;
-}
-
-.editor select, .editor textarea {
-    background: inherit;
-    color: inherit;
-    border: none;
-}
-
-.editor select {
-    border-bottom: 1px solid var(--main-border);
-    /*border-radius: 7px;*/
-}
-
-.editor textarea {
-    border-radius: 0 0 6px 6px;
-    padding: 15px;
-    outline: none;
-    resize: none;
-    /*min-width: calc(100% - 30px);*/
-    font-size: 18px;
-    flex-grow: 1;
-    font-family: "Cascadia Code", monospace;
-    tab-size: 2;
+    height: 90vh;
 }
 
 .header {
     display: flex;
-    gap: 15px;
-    justify-content: start;
     padding: 10px 15px;
-    background: var(--main-background);
-    border-radius: 6px 6px 0 0;
+    gap: 10px;
 }
 
-.run-button {
-    padding: 10px 15px;
-    border-radius: 6px;
-
-    cursor: pointer;
-
-    background: var(--accent-success);
-    transition: background-color 200ms;
-    color: white;
-    font-weight: 600;
-    font-size: 1.1rem;
-    border: none;
-}
-
-.run-button:hover {
-    background: var(--accent-success-hover);
-}
-
-.running {
-    background: var(--accent-fail);
-}
-
-.running:hover {
-    background: var(--accent-fail-hover);
-}
-
-@media screen and (max-width: 768px) {
-    .main-content {
-        flex-direction: column;
-    }
-}
-
-@media screen and (max-width: 425px) {
-    textarea:focus + .console {
-        max-height: 30px;
-        overflow: hidden;
-    }
+.main-content {
+    display: flex;
+    flex-grow: 1;
 }
