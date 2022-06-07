@@ -1,9 +1,10 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import useSupportedLangs from "../hooks/useSupportedLangs";
 import "./CodeEditor.css"
 import Console from "./Console";
 import BulbService from "../services/bulbService";
-import CodeEdit from "./ui/CodeEdit";
+import Editor from "@monaco-editor/react";
+import Resizeable from "./ui/Resizeable";
 
 export default function CodeEditor(
     {
@@ -65,11 +66,22 @@ export default function CodeEditor(
         await sandbox.terminate();
     }
 
+    const setEditorTheme = (monaco) => {
+        monaco.editor.defineTheme("one-dark", {
+            base: "vs-dark",
+            inherit: true,
+            rules: [],
+            colors: {
+                "editor.background": '#10131a',
+            },
+        });
+        console.log('before mount')
+    }
 
     return (
-        <div className="editor">
+        <div className="editor rounded container">
             <div className={`header ${!runnable ? 'hidden' : ''}`}>
-                <select name="lang" id="lang" defaultValue="none" onChange={updateLang}>
+                <select name="lang" id="lang" defaultValue="none" onChange={updateLang} className="select">
                     {supportedLangs.map((language) =>
                         <option key={language.language}
                                 value={language.language}
@@ -79,24 +91,40 @@ export default function CodeEditor(
                     )}
                     <option value="none">-</option>
                 </select>
-                <select name="lang-ver" id="lang-ver" onChange={updateVer}>
+                <select name="lang-ver" id="lang-ver" onChange={updateVer} className="select">
                     {getLangVersions((snippet ?? {}).language).map((ver) =>
                         <option key={ver} value={ver}>{ver}</option>
                     )}
                 </select>
                 {
                     running ?
-                        <button className="run-button running" onClick={killSandbox}>Kill</button>
+                        <button className="bg-failed rounded  px-15 py-7 bolder fg-accent"
+                                onClick={killSandbox}>Kill</button>
                         :
-                        <button className="run-button" onClick={createSandbox} disabled={!runnable}>Run</button>
+                        <button className="bg-success rounded px-15 py-7 bolder fg-accent" onClick={createSandbox}
+                                disabled={!runnable}>Run</button>
                 }
             </div>
             <div className="main-content">
-                <CodeEdit value={(snippet ?? {}).code}
-                          onChange={(newCode) => onChange({code: newCode})}
-                          editable={editable}
-                          language={(snippet ?? {}).language}
-                />
+                <Resizeable initialWidth={700}>
+                    <Editor value={(snippet ?? {}).code}
+                            onChange={(newCode) => onChange({code: newCode})}
+                            editable={editable}
+                            language={(snippet ?? {}).language}
+                            beforeMount={setEditorTheme}
+                            width={"100%"}
+                            theme={"one-dark"}
+                            height={"83.8vh"}
+                            options={{
+                                minimap: {
+                                    enabled: false,
+                                },
+                                fontFamily: "Cascadia Code",
+                                fontSize: "16px",
+                            }}
+
+                    />
+                </Resizeable>
                 <Console
                     output={consoleOutput}
                     onInput={onConsoleInput}
