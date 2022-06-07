@@ -1,0 +1,24 @@
+.resizer {
+    width: 7px;
+    background: var(--secondary-background);
+    position: relative;
+}
+
+.resizer:before, .resizer:after {
+    cursor: col-resize;
+    position: absolute;
+    content: '';
+    top: 50%;
+    left: 50%;
+    width: 1px;
+    height: 15px;
+    background: var(--main-foreground);
+}
+
+.resizer:before {
+    transform: translate(-125%, -50%);
+}
+
+.resizer:after {
+    transform: translate(75%, -50%);
+}
