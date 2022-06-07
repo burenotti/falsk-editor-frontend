@@ -1,61 +1,41 @@
 .console {
     position: relative;
     display: flex;
+    flex-grow: 1;
     flex-direction: column;
-    gap: 10px;
     background: #000;
-    border-radius: 0 7px 7px 0;
-    flex-grow: 0.8;
     padding: 10px;
 }
 
-.console-control-container {
-    padding: 10px 10px;
-    border-top: 1px solid var(--main-border);
-    display: flex;
+.clear-button {
+    position: absolute;
+    width: min-content;
+    right: 0;
+    opacity: 0.8;
+    font-size: 1rem;
 }
 
-.output {
-    margin: 0;
-    flex-grow: 1;
-    overflow: scroll;
+.clear-button:after {
+    content: '';
+    width: 3px;
+    background: white;
+    height: 3px;
+}
+
+.console-control-container {
+    display: flex;
+    border-top: 1px solid var(--main-border)
 }
 
 .console-input {
-    flex-grow: 1.1;
-    background: inherit;
-    color: inherit;
-    font-size: 18px;
-    font-family: "Cascadia Code", monospace;
-    outline: none;
+    flex-grow: 1;
     border: none;
-}
-
-.clear-button {
-    cursor: pointer;
-    position: absolute;
-    right: 0;
-    opacity: 0.3;
-    color: white;
     background: none;
-    border: none;
+    outline: none;
+    padding-top: 10px;
 }
 
-.clear-button:hover {
-    opacity: .5;
-}
-
-.send-console-input {
-    background: transparent;
-    border: 2px solid white;
-    padding: 5px 10px;
-    border-radius: 7px;
-    color: white;
-    cursor: pointer;
-    transition: 300ms;
-}
-
-.send-console-input:hover {
-    color: black;
-    background: white;
+.output {
+    flex-grow: 2;
+    overflow: auto;
 }

@@ -17,19 +17,19 @@ export default function Console({output, onInput, onClear}) {
     }, [output]);
     return (
         <div className="console">
-            <button onClick={onClear} className="clear-button">clear</button>
-            <pre className="output" ref={outputRef}>
+            <button onClick={onClear} className="fg-main hv-light bg-tr clear-button">clear</button>
+            <pre className="output fg-main monospaced" ref={outputRef}>
                 {output}
             </pre>
             <div className="console-control-container">
-                <input type="text" className="console-input" value={input}
+                <input type="text" className="console-input fg-main monospaced" value={input}
                        onChange={e => setInput(e.target.value)}
                        onKeyDown={e => {
                            if (e.key === "Enter")
                                handleInput()
                        }}
                 />
-                <button className="send-console-input" onClick={handleInput}>Send</button>
+                <button className="px-15 py-7 monospaced reset bg-tr fg-main hv-light" onClick={handleInput}>Send</button>
             </div>
         </div>
     );
