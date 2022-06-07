@@ -39,7 +39,7 @@ export default function CodeEditor(
 
     const createSandbox = async () => {
         setConsoleOutput(() => "");
-        let sandbox = await service.runCode(snippet.language, snippet.code, snippet.version);
+        let sandbox = await service.runCode(snippet.language, snippet.code, snippet.language_version);
         setSandbox(sandbox);
         setRunning(true);
 
@@ -95,6 +95,7 @@ export default function CodeEditor(
                 <CodeEdit value={(snippet ?? {}).code}
                           onChange={(newCode) => onChange({code: newCode})}
                           editable={editable}
+                          language={(snippet ?? {}).language}
                 />
                 <Console
                     output={consoleOutput}
