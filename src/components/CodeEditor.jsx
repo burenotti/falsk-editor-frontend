@@ -8,7 +8,7 @@ import Resizeable from "./ui/Resizeable";
 
 export default function CodeEditor(
     {
-        language, sourceCode, snippet, onChange, version = null,
+        snippet, onChange,
         editable = true, runnable = true
     }
 ) {
@@ -24,9 +24,10 @@ export default function CodeEditor(
         const newLang = event.target.value;
         onChange({language: newLang, language_version: getLangVersions(newLang)[0]});
     }
-    const getLangVersions = (language) =>
-        (supportedLangs.find((l) => l.language === language) ?? {}).versions ?? [];
-
+    const getLangVersions = (language) => {
+        return supportedLangs[language] ?? [];
+    }
+    console.log(supportedLangs);
 
     const onConsoleInput = (input) => {
         if (running) {
@@ -81,27 +82,26 @@ export default function CodeEditor(
     return (
         <div className="editor rounded container">
             <div className={`header ${!runnable ? 'hidden' : ''}`}>
-                <select name="lang" id="lang" defaultValue="none" onChange={updateLang} className="select">
-                    {supportedLangs.map((language) =>
-                        <option key={language.language}
-                                value={language.language}
+                <select name="lang" id="lang" value={snippet.language} onChange={updateLang} className="select">
+                    {Object.keys(supportedLangs).map((language) =>
+                        <option key={language}
+                                value={language}
                         >
-                            {language.language}
+                            {language}
                         </option>
                     )}
-                    <option value="none">-</option>
                 </select>
-                <select name="lang-ver" id="lang-ver" onChange={updateVer} className="select">
-                    {getLangVersions((snippet ?? {}).language).map((ver) =>
+                <select name="lang-ver" id="lang-ver" value={snippet.language_version} onChange={updateVer} className="select">
+                    {getLangVersions(snippet.language).map((ver) =>
                         <option key={ver} value={ver}>{ver}</option>
                     )}
                 </select>
                 {
                     running ?
-                        <button className="bg-failed rounded  px-15 py-7 bolder fg-accent"
+                        <button className="reset bg-failed rounded  px-15 py-7 bolder fg-accent"
                                 onClick={killSandbox}>Kill</button>
                         :
-                        <button className="bg-success rounded px-15 py-7 bolder fg-accent" onClick={createSandbox}
+                        <button className="reset bg-success rounded px-15 py-7 bolder fg-accent" onClick={createSandbox}
                                 disabled={!runnable}>Run</button>
                 }
             </div>
@@ -113,8 +113,8 @@ export default function CodeEditor(
                             language={(snippet ?? {}).language}
                             beforeMount={setEditorTheme}
                             width={"100%"}
+                            height={"calc(100vh - 170px)"}
                             theme={"one-dark"}
-                            height={"83.8vh"}
                             options={{
                                 minimap: {
                                     enabled: false,
