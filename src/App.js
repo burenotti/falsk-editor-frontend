@@ -20,6 +20,16 @@ function App() {
         console.log();
     }, [dispatchSnippet, params]);
 
+    const share = () => {
+        let url = new URL(process.env.REACT_APP_ORIGIN_URL);
+        url.searchParams.set('code', snippet.code ?? '');
+        url.searchParams.set('language', snippet.language);
+        url.searchParams.set('langauge_version', snippet.language_version);
+        navigator.clipboard.writeText(url.toString()).then(() => {
+            alert("Link copied");
+        })
+    }
+
     const updateSnippetMeta = (updates) => dispatchSnippet({
         type: types.updateMeta,
         ...updates,
@@ -34,6 +44,7 @@ function App() {
             <Header showPopup={() => null}
                     updateSnippet={updateSnippetMeta}
                     snippet={snippet}
+                    onShare={share}
             />
             <CodeEditor
                 snippet={snippet}

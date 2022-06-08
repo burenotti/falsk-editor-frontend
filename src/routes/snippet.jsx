@@ -28,7 +28,9 @@ export default function SnippetView({popup}) {
     if (snippet.attached || !snippet.attachable)
         return (
             <>
-                <Header showPopup={showPopup} snippet={snippet} updateSnippet={updateSnippet}/>
+                <Header onUsernameClick={showPopup}
+                        snippet={snippet}
+                        updateSnippet={updateSnippet}/>
                 <CodeEditor
                     snippet={snippet}
                     onChange={updateSnippet}
