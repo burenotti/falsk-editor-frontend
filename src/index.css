@@ -35,6 +35,9 @@ button {
 
 .reset {
     border: none;
+    -moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
 }
 
 .hv-light:hover {
@@ -71,7 +74,14 @@ code {
     padding-bottom: 7px;
 }
 
+.ml-auto {
+    margin-left: auto;
+}
+
 .select {
+    -moz-appearance: none;
+	-webkit-appearance: none;
+	appearance: none;
     background-color: transparent;
     color: var(--main-foreground);
     font-size: 1rem;
