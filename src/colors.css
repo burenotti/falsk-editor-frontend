@@ -7,7 +7,7 @@
         --main-background: #10131a;
         --main-foreground: #D4D4D4;
         --secondary-background: #08090e;
-
+        --main-link: #AFCFEA;
         --main-border: #3c3c44;
     }
 }
@@ -59,4 +59,8 @@
 
 .fg-accent {
     color: white;
+}
+
+.fg-link {
+    color: var(--main-link)
 }

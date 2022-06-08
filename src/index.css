@@ -78,6 +78,10 @@ code {
     margin-left: auto;
 }
 
+.td-u {
+    text-decoration: underline;
+}
+
 .select {
     -moz-appearance: none;
 	-webkit-appearance: none;
