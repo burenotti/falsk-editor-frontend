@@ -17,7 +17,7 @@ export default function Console({output, onInput, onClear}) {
     }, [output]);
     return (
         <div className="console">
-            <button onClick={onClear} className="fg-main hv-light bg-tr clear-button">clear</button>
+            <button onClick={onClear} className="reset fg-main hv-light bg-tr clear-button">clear</button>
             <pre className="output fg-main monospaced" ref={outputRef}>
                 {output}
             </pre>
@@ -29,7 +29,7 @@ export default function Console({output, onInput, onClear}) {
                                handleInput()
                        }}
                 />
-                <button className="px-15 py-7 monospaced reset bg-tr fg-main hv-light" onClick={handleInput}>Send</button>
+                <button className="reset px-15 py-7 monospaced bg-tr fg-main hv-light" onClick={handleInput}>Send</button>
             </div>
         </div>
     );
